@@ -1,4 +1,4 @@
-package com.example.george.elecoen390_watermonitor;
+package com.example.groupel.elecoen390_watermonitor;
 
 import org.junit.Test;
 
