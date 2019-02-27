@@ -1,6 +1,6 @@
 package com.example.groupel.elecoen390_watermonitor;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class spectroMeasure {
     private int ID;
