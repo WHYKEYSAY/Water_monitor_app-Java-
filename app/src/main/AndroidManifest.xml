@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.george.elecoen390_watermonitor">
+    package="com.example.groupel.elecoen390_watermonitor">
 
     <application
         android:allowBackup="true"
