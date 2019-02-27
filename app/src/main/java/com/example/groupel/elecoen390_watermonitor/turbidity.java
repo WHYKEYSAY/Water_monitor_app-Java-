@@ -3,9 +3,11 @@ package com.example.groupel.elecoen390_watermonitor;
 import java.sql.Date;
 
 public class turbidity {
-    private int ID;
+    private long ID;
     private int turb;
     private Date date;
+
+    public turbidity(){}
 
     public turbidity(int ID, int turb, Date date) {
         this.ID = ID;
@@ -18,6 +20,13 @@ public class turbidity {
         this.date = date;
     }
 
+    public long getID() {
+        return ID;
+    }
+
+    public void setID(long ID) {
+        this.ID = ID;
+    }
     public int getTurb() {
         return turb;
     }

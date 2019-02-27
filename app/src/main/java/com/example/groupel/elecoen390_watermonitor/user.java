@@ -1,10 +1,12 @@
 package com.example.groupel.elecoen390_watermonitor;
 
 public class user {
-    private int ID;
+    private long ID;
     private String name;
     private String pass;
     private String config;
+
+    public user(){}
 
     public user(int ID, String name, String pass, String config) {
         this.ID = ID;
@@ -19,11 +21,11 @@ public class user {
         this.config = config;
     }
 
-    public int getID() {
+    public long getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(long ID) {
         this.ID = ID;
     }
 

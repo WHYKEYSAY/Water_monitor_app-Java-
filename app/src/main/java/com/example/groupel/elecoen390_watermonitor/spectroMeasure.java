@@ -3,14 +3,25 @@ package com.example.groupel.elecoen390_watermonitor;
 import java.sql.Date;
 
 public class spectroMeasure {
-    private int ID;
+    private long ID;
     private Date date;
 
-    public int getID() {
+    public spectroMeasure(){}
+
+    public spectroMeasure(long ID, Date date) {
+        this.ID = ID;
+        this.date = date;
+    }
+
+    public spectroMeasure(Date date) {
+        this.date = date;
+    }
+
+    public long getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(long ID) {
         this.ID = ID;
     }
 
