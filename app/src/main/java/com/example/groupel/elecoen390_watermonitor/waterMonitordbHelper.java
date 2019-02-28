@@ -23,6 +23,8 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "waterMonitorDatabase";
     private static final String TABLE_SPECTRO = "spectrophotometry_samples";
     private static final String TABLE_SPECTROPOINTS = "spectrophotometry_points";//contains measurements ID
+    private static final String TABLE_USER = "users";
+    private static final String TABLE_TURBIDITY = "turbidity";
 
     //Shared column names
     private static final String KEY_ID = "id";
@@ -34,6 +36,15 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
     private static final String KEY_MEASURE_ID = "measureId";
     private static final String KEY_WAVE = "wavelength";
     private static final String KEY_INTENSITY = "intensity";
+    
+    //User table specific column names
+    private static final String KEY_NAME = "name";
+    private static final String KEY_PASS = "pass";
+    private static final String KEY_CONFIG = "config";
+    
+    //Turbidity table specific column names
+    private static final String KEY_TUR = "tur";
+    private static final String KEY_TUR_DATE = "tur_date";
 
     //spectrophotometry samples table contains: ID, date
     private static final String CREATE_TABLE_SPECTRO = "CREATE TABLE "
@@ -44,6 +55,20 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_SPECTROPOINTS = "CREATE TABLE "
             + TABLE_SPECTROPOINTS + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_MEASURE_ID
             + " INTEGER,"+ KEY_WAVE + " INTEGER," + KEY_INTENSITY + " INTEGER" + ")";
+    
+    //User table creation statement (ID,name,pass,config)
+    private static final String CREATE_TABLE_USER = "CREATE TABLE " + TABLE_USER + "(" 
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," 
+            + KEY_NAME + " TEXT NOT NULL,"
+            + KEY_PASS + " TEXT NOT NULL,"
+            + KEY_CONFIG + " TEXT NOT NULL" + ")";
+    
+    //Turbidity table creation statement (ID,tur,date)
+    private static final String CREATE_TABLE_TURBIDITY = "CREATE TABLE " + TABLE_TURBIDITY + "("
+            + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+            + KEY_TUR + " INTEGER NOT NULL,"
+            + KEY_TUR_DATE + " TEXT" + ")";
+
 
     private Context context;
 
@@ -58,12 +83,17 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_SPECTRO);
         db.execSQL(CREATE_TABLE_SPECTROPOINTS);
+        db.execSQL(CREATE_TABLE_USER);
+        db.execSQL(CREATE_TABLE_TURBIDITY);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SPECTRO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_SPECTROPOINTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TURBIDITY);
         onCreate(db);
     }
     //TODO: Create, update, delete, get, getall for each table. Missing turbidity and user tables.
@@ -326,4 +356,221 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
         db.delete(TABLE_SPECTROPOINTS, KEY_ID + "=?", new String[] { String.valueOf(pointID) });
         db.close();
     }
+    
+    /***************************** USER TABLE METHODS *******************************
+     * Methods to:
+     *       create,
+     *       get,
+     *       getall
+     *       delete
+     * */
+
+    public long createUser(user new_user){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        long id = -1;
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, new_user.getName());
+        values.put(KEY_PASS, new_user.getPass());
+        values.put(KEY_CONFIG, new_user.getConfig());
+
+        try {
+            //return id
+            id = db.insertOrThrow(TABLE_USER, null, values);
+        }
+        catch (SQLException e){
+            Log.d(TAG, "SQL Exception " + e);
+            Toast.makeText(context, "Failed to create this user.\n Exception " + e, Toast.LENGTH_LONG).show();
+        }
+        finally {
+            db.close();
+        }
+        return id;
+    }
+
+    public user getUser(long user_id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = null;
+        user user = new user();
+        try {
+            c = db.query(TABLE_USER, null, KEY_ID + "=?",
+                    new String[] { String.valueOf(user_id) }, null, null, null);
+
+            if (c != null) {// calling a method when cursor = null causes crash
+                if (c.moveToFirst()) {
+                    user.setID(c.getInt(c.getColumnIndex(KEY_ID)));
+                    user.setName(c.getString(c.getColumnIndex(KEY_NAME)));
+                    user.setPass(c.getString(c.getColumnIndex(KEY_PASS)));
+                    user.setConfig(c.getString(c.getColumnIndex(KEY_CONFIG)));
+                    return user;
+                }
+            }
+        }
+        catch(SQLException e){
+            Log.d(TAG, "SQL Exception " + e);
+            Toast.makeText(context, "Failed to get user row.\n Exception " + e, Toast.LENGTH_LONG).show();
+        }
+        finally {
+            db.close();
+            if (c != null)
+                c.close();
+        }
+        return user;
+    }
+
+    public ArrayList<user> getAllUsers(){
+        ArrayList<user> allUsers = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = null;
+        try {
+            //if not empty
+            c = db.query(TABLE_USER, null, null, null,
+                    null,null, null);
+            if (c != null) {//avoid null pointer crash, returns empty array
+                if (c.moveToFirst()) {
+                    do {
+                        user user = new user();
+                        user.setID(c.getInt(c.getColumnIndex(KEY_ID)));
+                        user.setName(c.getString(c.getColumnIndex(KEY_NAME)));
+                        user.setPass(c.getString(c.getColumnIndex(KEY_PASS)));
+                        user.setConfig(c.getString(c.getColumnIndex(KEY_CONFIG)));
+                        allUsers.add(user);
+                    } while (c.moveToNext());
+                }
+                return allUsers;
+            }
+        }
+        catch(SQLException e){
+            Log.d(TAG, "SQL Exception " + e);
+            Toast.makeText(context, "Failed to get all users.\n Exception " + e, Toast.LENGTH_LONG).show();
+        }
+        finally{
+            db.close();
+            if (c != null)
+                c.close();
+        }
+        return allUsers;
+    }
+
+    public void deleteUser (long user_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_USER, KEY_ID + "=?", new String[] { String.valueOf(user_id) });
+        db.close();
+    }
+    /***************************** TURBIDITY TABLE METHODS *******************************
+     * Methods to:
+     *       create,
+     *       get,
+     *       getall
+     *       delete
+     * */
+
+    public long createTur(turbidity new_tur){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        long id = -1;
+        ContentValues values = new ContentValues();
+        values.put(KEY_TUR, new_tur.getTurb());
+        values.put(KEY_DATE, dateFormat.format(new_tur.getDate()));
+
+        try {
+            //return id
+            id = db.insertOrThrow(TABLE_TURBIDITY, null, values);
+        }
+        catch (SQLException e){
+            Log.d(TAG, "SQL Exception " + e);
+            Toast.makeText(context, "Failed to create this turbidity.\n Exception " + e, Toast.LENGTH_LONG).show();
+        }
+        finally {
+            db.close();
+        }
+        return id;
+    }
+
+    public turbidity getTur(long tur_id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = null;
+        turbidity turbidity = new turbidity();
+        try {
+            c = db.query(TABLE_TURBIDITY, null, KEY_ID + "=?",
+                    new String[] { String.valueOf(tur_id) }, null, null, null);
+
+            if (c != null) {// calling a method when cursor = null causes crash
+                if (c.moveToFirst()) {
+                    turbidity.setID(c.getInt(c.getColumnIndex(KEY_ID)));
+                    turbidity.setTurb(c.getInt(c.getColumnIndex(KEY_TUR)));
+                    try {
+                        turbidity.setDate(new java.sql.Date( dateFormat.parse(c.getString(c.getColumnIndex(KEY_DATE))).getDate() ));
+                    }
+                    catch(ParseException e){
+                        Log.d(TAG, "Date Exception " + e);
+                        Toast.makeText(context, "Failed to parse date \n Exception" + e, Toast.LENGTH_LONG).show();
+                    }
+                    return turbidity;
+                }
+            }
+        }
+        catch(SQLException e){
+            Log.d(TAG, "SQL Exception " + e);
+            Toast.makeText(context, "Failed to get turbidity.\n Exception " + e, Toast.LENGTH_LONG).show();
+        }
+        finally {
+            db.close();
+            if (c != null)
+                c.close();
+        }
+        return turbidity;
+    }
+
+    public ArrayList<turbidity> getAllTurbidity(){
+        ArrayList<turbidity> allTur = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = null;
+        try {
+            //if not empty
+            c = db.query(TABLE_TURBIDITY, null, null, null,
+                    null,null, null);
+            if (c != null) {//avoid null pointer crash, returns empty array
+                if (c.moveToFirst()) {
+                    do {
+                        turbidity turbidity = new turbidity();
+                        turbidity.setID(c.getInt(c.getColumnIndex(KEY_ID)));
+                        turbidity.setTurb(c.getInt(c.getColumnIndex(KEY_TUR)));
+                        try {
+                            turbidity.setDate(new java.sql.Date( dateFormat.parse(c.getString(c.getColumnIndex(KEY_DATE))).getDate() ));
+                        }
+                        catch(ParseException e){
+                            Log.d(TAG, "Date Exception " + e);
+                            Toast.makeText(context, "Failed to parse date \n Exception" + e, Toast.LENGTH_LONG).show();
+                        }
+
+                        allTur.add(turbidity);
+                    } while (c.moveToNext());
+                }
+                return allTur;
+            }
+        }
+        catch(SQLException e){
+            Log.d(TAG, "SQL Exception " + e);
+            Toast.makeText(context, "Failed to get all turbidity.\n Exception " + e, Toast.LENGTH_LONG).show();
+        }
+        finally{
+            db.close();
+            if (c != null)
+                c.close();
+        }
+        return allTur;
+    }
+
+    public void deleteTur (long tur_id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_TURBIDITY, KEY_ID + "=?", new String[] { String.valueOf(tur_id) });
+        db.close();
+    }
+
+    
 }
