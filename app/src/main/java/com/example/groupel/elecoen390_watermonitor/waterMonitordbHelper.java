@@ -84,7 +84,7 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
         values.put(KEY_DATE, dateFormat.format(new_measure.getDate()));
 
         try {
-            //return course id
+            //return id
             id = db.insertOrThrow(TABLE_SPECTRO, null, values);
         }
         catch (SQLException e){
@@ -127,7 +127,7 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
         }
         catch(SQLException e){
             Log.d(TAG, "SQL Exception " + e);
-            Toast.makeText(context, "Failed to get course row.\n Exception " + e, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Failed to get spectrophotometry measurement row.\n Exception " + e, Toast.LENGTH_LONG).show();
         }
         finally {
             db.close();
@@ -166,7 +166,7 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
         }
         catch(SQLException e){
             Log.d(TAG, "SQL Exception " + e);
-            Toast.makeText(context, "Failed to get all course rows.\n Exception " + e, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Failed to get all spectrophotometry measurement rows.\n Exception " + e, Toast.LENGTH_LONG).show();
         }
         finally{
             db.close();
@@ -179,7 +179,7 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
     public void deleteSpectroMeasure(long measureID){
         SQLiteDatabase db = this.getWritableDatabase();
 
-        //delete all assignments with this course ID
+        //delete all points with this samples' ID
         ArrayList<spectroPoint> allSpectroPoints = getAllSpectroPointsBySampleID(measureID);
         for (spectroPoint points : allSpectroPoints) {
             deleteSpectroPoint(points.getID());
@@ -213,7 +213,7 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
         }
         catch (SQLException e){
             Log.d(TAG, "SQL Exception " + e);
-            Toast.makeText(context, "Failed to create assignment row.\n Exception " + e, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Failed to create spectro point row.\n Exception " + e, Toast.LENGTH_LONG).show();
         }
         finally {
             db.close();
@@ -242,7 +242,7 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
         }
         catch(SQLException e){
             Log.d(TAG, "SQL Exception " + e);
-            Toast.makeText(context, "Failed to get assignment row.\n Exception " + e, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Failed to get spectro point row.\n Exception " + e, Toast.LENGTH_LONG).show();
         }
         finally {
             db.close();
@@ -277,7 +277,7 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
         }
         catch(SQLException e){
             Log.d(TAG, "SQL Exception " + e);
-            Toast.makeText(context, "Failed to get all assignment rows.\n Exception " + e, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Failed to get all spectro point rows.\n Exception " + e, Toast.LENGTH_LONG).show();
         }
         finally{
             db.close();
@@ -311,7 +311,7 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
         }
         catch(SQLException e){
             Log.d(TAG, "SQL Exception " + e);
-            Toast.makeText(context, "Failed to get all assignment rows.\n Exception " + e, Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Failed to get all spectro point rows.\n Exception " + e, Toast.LENGTH_LONG).show();
         }
         finally{
             db.close();
