@@ -208,7 +208,7 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
         values.put(KEY_INTENSITY, new_point.getIntensity());
 
         try {
-            //return course id
+            //return id
             id = db.insertOrThrow(TABLE_SPECTROPOINTS, null, values);
         }
         catch (SQLException e){
