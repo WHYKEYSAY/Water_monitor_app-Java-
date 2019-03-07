@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         tableLayout.setColumnCollapsed(2,table_flag);
 
         if(table_flag){
-            //Close
+            //Collapse
             table_flag = false;
             showDetails.setText("SHOW DETAILS");
         }
