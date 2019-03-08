@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#ffffff"
-    tools:context="com.example.groupel.elecoen390_watermonitor.MainActivity">
+    tools:context="com.example.groupel.elecoen390_watermonitor.TableActivity">
 
     <TableLayout
         android:id="@+id/tablelayout"
