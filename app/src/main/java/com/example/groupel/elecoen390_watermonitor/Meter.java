@@ -27,7 +27,7 @@ public class Meter extends AppCompatActivity {
         setContentView(R.layout.activity_meter);
         waterDialog = new Dialog(this);
 
-        start=(ImageView)findViewById(R.id.btn_start);
+        start = (ImageView)findViewById(R.id.btn_start);
         start.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SpeedView speedometer = findViewById(R.id.speedView);
@@ -40,27 +40,17 @@ public class Meter extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(x<30)
-
-                        {
+                        if(x<30) {
                             ShowBadPopup();
                         }
-                        else if(x>=30 && x<80)
-
-                        {
-
+                        else if(x>=30 && x<80) {
                             ShowOkPopup();
                         }
-                        else
-
-                        {
+                        else {
                             ShowGoodPopup();
                         }
                     }
                 },2500);
-
-
-
             }
 
         });
