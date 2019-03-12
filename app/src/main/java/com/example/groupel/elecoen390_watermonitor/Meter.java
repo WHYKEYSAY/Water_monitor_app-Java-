@@ -1,6 +1,7 @@
 package com.example.groupel.elecoen390_watermonitor;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ public class Meter extends AppCompatActivity {
     private Dialog waterDialog;
     private ImageView closeBad, closeGood, closeOk, start;
     private TextView titleBad, titleGood, titleOk;
+    private Button history;
     private int x=0;
 
     @Override
@@ -52,7 +54,13 @@ public class Meter extends AppCompatActivity {
                     }
                 },2500);
             }
-
+        });
+        history = findViewById(R.id.history_button);
+        history.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent intent = new Intent(Meter.this, TableActivity.class);
+                startActivity(intent);
+            }
         });
     }
     public void ShowBadPopup(){
