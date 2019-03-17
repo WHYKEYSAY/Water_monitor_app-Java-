@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.groupel.elecoen390_watermonitor.Meter"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    >
 
     <com.github.anastr.speedviewlib.SpeedView
         android:id="@+id/speedView"
@@ -30,6 +31,7 @@
         app:sv_speedTextSize="40dp"
         app:sv_textColor="@android:color/white"
         app:sv_unit="" />
+
 
     <ImageView
         android:id="@+id/btn_start"
