@@ -18,8 +18,8 @@ import de.codecrafters.tableview.listeners.TableDataClickListener;
 
 public class detailedInfo extends AppCompatActivity {
 
-    String[] spaceProbeHeaders = {"ID", "Name", "Percent", "Others"};
-    String[][] spaceProbes;
+    String[] infoHeader = {"ID", "Name", "Percent", "Others"};
+    String[][] infos;
     
 
 
@@ -40,8 +40,8 @@ public class detailedInfo extends AppCompatActivity {
 
         populateData();
 
-        tb.setHeaderAdapter(new SimpleTableHeaderAdapter(this, spaceProbeHeaders));
-        tb.setDataAdapter(new SimpleTableDataAdapter(this, spaceProbes));
+        tb.setHeaderAdapter(new SimpleTableHeaderAdapter(this, infoHeader));
+        tb.setDataAdapter(new SimpleTableDataAdapter(this, infos));
 
         tb.addDataClickListener(new TableDataClickListener<String[]>() {
             @Override
@@ -57,42 +57,42 @@ public class detailedInfo extends AppCompatActivity {
     }
 
     private void populateData() {
-        Spaceprobe spaceprobe = new Spaceprobe();
-        ArrayList<Spaceprobe> spaceprobeList = new ArrayList<>();
+        InfoTable infotable = new InfoTable();
+        ArrayList<InfoTable> infotableList = new ArrayList<>();
 
 
-        spaceprobe.setId("1");
-        spaceprobe.setName("Cyanide");
-        spaceprobe.setPropellant("80%");
-        spaceprobe.setDestination("xxxx");
-        spaceprobeList.add(spaceprobe);
+        infotable.setId("1");
+        infotable.setName("Cyanide");
+        infotable.setPercent("80%");
+        infotable.setOthers("xxxx");
+        infotableList.add(infotable);
 
-        spaceprobe = new Spaceprobe();
-        spaceprobe.setId("2");
-        spaceprobe.setName("Nitrates");
-        spaceprobe.setPropellant("15%");
-        spaceprobe.setDestination("xxxx");
-        spaceprobeList.add(spaceprobe);
+        infotable = new InfoTable();
+        infotable.setId("2");
+        infotable.setName("Nitrates");
+        infotable.setPercent("15%");
+        infotable.setOthers("xxxx");
+        infotableList.add(infotable);
 
-        spaceprobe = new Spaceprobe();
-        spaceprobe.setId("3");
-        spaceprobe.setName("Organic");
-        spaceprobe.setPropellant("20%");
-        spaceprobe.setDestination("xxx");
-        spaceprobeList.add(spaceprobe);
+        infotable = new InfoTable();
+        infotable.setId("3");
+        infotable.setName("Organic");
+        infotable.setPercent("20%");
+        infotable.setOthers("xxx");
+        infotableList.add(infotable);
 
 
 
-        spaceProbes = new String[spaceprobeList.size()][4];
+        infos = new String[infotableList.size()][4];
 
-        for (int i = 0; i < spaceprobeList.size(); i++) {
+        for (int i = 0; i < infotableList.size(); i++) {
 
-            Spaceprobe s = spaceprobeList.get(i);
+            InfoTable s = infotableList.get(i);
 
-            spaceProbes[i][0] = s.getId();
-            spaceProbes[i][1] = s.getName();
-            spaceProbes[i][2] = s.getPropellant();
-            spaceProbes[i][3] = s.getDestination();
+            infos  [i][0] = s.getId();
+            infos[i][1] = s.getName();
+            infos[i][2] = s.getPercent();
+            infos[i][3] = s.getOthers();
 
 
         }
