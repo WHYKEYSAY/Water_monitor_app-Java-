@@ -655,7 +655,10 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
         long id = -1;
         ContentValues values = new ContentValues();
         values.put(KEY_MEASURE_ID, new_chem.getMeasurementID());
-        values.put(KEY_PRES, new_chem.getPresence());
+        if (new_chem.getPresence() == false)
+            values.put(KEY_PRES, 0);
+        else
+            values.put(KEY_PRES, 1);
         values.put(KEY_TYPE, new_chem.getType());
         values.put(KEY_NAME, new_chem.getName());
         values.put(KEY_CON, (int)(new_chem.getConcentration() * chemical.DECIMAL_SCALE));
