@@ -1,11 +1,16 @@
 package com.example.groupel.elecoen390_watermonitor;
 
+/*
+* Describes an individual user's identity and configuration.
+* IMPORTANT: Configuration is saved as String and should be formatted as "option1,option 2,..."
+* */
 public class user {
     private long ID;
     private String name;
     private String pass;
     private String config;
 
+    //Avoid using constructors without parameters to avoid bugs
     public user(){}
 
     public user(int ID, String name, String pass, String config) {
@@ -25,6 +30,7 @@ public class user {
         return ID;
     }
 
+    //Avoid setting ID to avoid bugs
     public void setID(long ID) {
         this.ID = ID;
     }

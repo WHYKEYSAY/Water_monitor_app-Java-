@@ -1,11 +1,13 @@
 package com.example.groupel.elecoen390_watermonitor;
 
+//
 public class spectroPoint {
     private long ID;
     private long measurementID;
     private int wavelength;
     private int intensity;
 
+    //Avoid using constructors without parameters to avoid bugs
     public spectroPoint(){
     }
 
@@ -25,7 +27,7 @@ public class spectroPoint {
     public long getID() {
         return ID;
     }
-
+    //Avoid setting ID to avoid bugs
     public void setID(long ID) {
         this.ID = ID;
     }
