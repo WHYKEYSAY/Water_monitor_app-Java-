@@ -25,11 +25,10 @@ public class graphActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
+        //TODO: go-back arrow not working, look it up
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);//display go-back arrow on top left
         Intent intent= getIntent();
         setUI();
-        //TODO: add labels
-        //TODO: add buttons that navigates to the detailed info
         plot();//plotting takes info from respective item clicked at tableActivity
 
     }
