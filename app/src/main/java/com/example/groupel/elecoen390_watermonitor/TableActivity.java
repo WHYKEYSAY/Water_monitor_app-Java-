@@ -35,12 +35,18 @@ public class TableActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,arrayList);
         listView.setAdapter(arrayAdapter);
         //TODO:  Display text "No History" if nothing is retrieved from the database/firebase
+        //TODO: Store last 20 test history locally
         //This list should acquire all the history from the firebase/local database
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //TODO: Make this to be able to pass table(DB) id to graph activity
                 Intent intent = new Intent(view.getContext(),graphActivity.class);
+                //Use date as key to search the measurement ID
+                //waterMonitorHelper helper = new waterMonitorHelper(getContext());
+                //SpectroMeasure sample = helper.getMeasure(date);
+                //id = sample.getID();
+                //intent.putExtra("measureID",id);
                 startActivity(intent);
             }
         });

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.TextView;
 
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
@@ -20,6 +21,8 @@ public class graphActivity extends AppCompatActivity {
     //TODO: add method to get data point from local database or firebase
     private LineGraphSeries<DataPoint> series;
     GraphView graphView;
+    TextView y_axis_label;
+    TextView x_axis_label;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +101,8 @@ public class graphActivity extends AppCompatActivity {
     private void setUI() {
         graphView = (GraphView) findViewById(R.id.graph_IntensityVSwavelength);
         series = new LineGraphSeries<>();
+        y_axis_label = (TextView) findViewById(R.id.axis_label_Y);
+        x_axis_label = (TextView) findViewById(R.id.axis_label_X);
 
     }
 

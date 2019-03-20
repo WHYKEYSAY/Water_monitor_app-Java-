@@ -108,5 +108,25 @@ public class Meter extends AppCompatActivity {
         waterDialog.show();
 
     }
+
+    //default app methods
+    protected void onStart() {//after the OnCreate() is called, this function will be called.
+        super.onStart();
+    }
+
+    protected void onResume() {//This function will be called either when onStart() is called
+        // or the activity is resume from function onPause().
+        super.onResume();
+    }
+
+    protected void onStop() {//This function is called when the app stops running.
+        // The data-saving process is also defined inside this function
+        super.onStop();
+    }
+
+    protected void onPause() {//When another activity is taking priority,
+        // this function is called and activity is on hold.
+        super.onPause();
+    }
 }
 
