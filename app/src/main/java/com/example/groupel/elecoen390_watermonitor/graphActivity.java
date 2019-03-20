@@ -3,6 +3,9 @@ package com.example.groupel.elecoen390_watermonitor;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
@@ -29,6 +32,13 @@ public class graphActivity extends AppCompatActivity {
         //TODO: add buttons that navigates to the detailed info
         plot();//plotting takes info from respective item clicked at tableActivity
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.more_options,menu);
+        return true;
     }
 
     private void plot() {
@@ -76,11 +86,11 @@ public class graphActivity extends AppCompatActivity {
             @Override
             public String formatLabel(double value, boolean isValueX) {
                 if (isValueX) {
-                    // show um for x values
+                    // show units for x values
                     return super.formatLabel(value, isValueX) + " um";
                 } else {
-                    // show um for y values
-                    return super.formatLabel(value, isValueX) + " um";
+                    // add units for y values, html source for displaying exponential in textview mode
+                    return super.formatLabel(value, isValueX) + " W/" + Html.fromHtml("m<sup>2</sup>");
                 }
             }
         });
