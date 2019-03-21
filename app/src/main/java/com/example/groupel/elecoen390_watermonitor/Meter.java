@@ -2,12 +2,16 @@ package com.example.groupel.elecoen390_watermonitor;
 
 import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.Notification;
 import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v4.app.AlarmManagerCompat;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,10 +27,11 @@ import java.sql.Date;
 import java.util.Random;
 
 public class Meter extends AppCompatActivity {
+    private NotificationManagerCompat notificationManagerCompat;
     private Dialog waterDialog;
     private ImageView closeBad, closeGood, closeOk, start;
     private TextView titleBad, titleGood, titleOk;
-    private Button history;
+    private Button history, alarmTest;
     private int x=0;
 
     @Override
@@ -68,8 +73,33 @@ public class Meter extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        notificationManagerCompat = NotificationManagerCompat.from(this);
+        alarmTest = findViewById(R.id.alarmTest_button);
+        alarmTest.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                pushAlarmNotification();
+            }
+        });
+
         cancelAlarm();//avoid duplicates
         startAlarmSystem();
+    }
+
+    public void pushAlarmNotification(){
+        Intent notifIntent = new Intent(this, Meter.class);
+
+        PendingIntent startAppIntent = PendingIntent.getActivity(this, 0, notifIntent, 0);
+
+        Notification notification = new NotificationCompat.Builder(this, app.CHANNEL_ALARM_ID)
+                .setSmallIcon(R.drawable.ic_announcement)
+                .setContentTitle("Water Monitor")
+                .setContentText("Detected issue in water.")
+                .setContentIntent(startAppIntent)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)//sound/vibration + front display
+                .build();
+
+        notificationManagerCompat.notify(1, notification);
     }
 
     public void ShowBadPopup(){

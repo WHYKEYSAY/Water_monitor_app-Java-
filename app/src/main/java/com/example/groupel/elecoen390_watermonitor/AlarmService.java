@@ -2,13 +2,22 @@ package com.example.groupel.elecoen390_watermonitor;
 
 import android.app.AlarmManager;
 import android.app.IntentService;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.util.Log;
+import android.widget.Toast;
+
+import static android.content.ContentValues.TAG;
 
 public class AlarmService extends IntentService {
+    private NotificationManagerCompat notificationManagerCompat;
+    private static long alarmID;
 
     public AlarmService() {
         super("WaterMonitorAlarm");
@@ -17,9 +26,27 @@ public class AlarmService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         //setup test and notification here
+        pushAlarmNotification();
         //reset alarm
         cancelAlarm();//avoid duplicates
         startAlarmSystem();
+    }
+    public void pushAlarmNotification(){
+        notificationManagerCompat = NotificationManagerCompat.from(this);
+
+        Intent notifIntent = new Intent(this, Meter.class);
+
+        PendingIntent startAppIntent = PendingIntent.getActivity(this, 0, notifIntent, 0);
+
+        Notification notification = new NotificationCompat.Builder(this, app.CHANNEL_ALARM_ID)
+                .setSmallIcon(R.drawable.ic_announcement)
+                .setContentTitle("Water Monitor")
+                .setContentText("Detected issue in water.")
+                .setContentIntent(startAppIntent)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)//sound/vibration + front display
+                .build();
+
+        notificationManagerCompat.notify(1, notification);
     }
 
     private void cancelAlarm(){
