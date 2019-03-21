@@ -1,8 +1,13 @@
 package com.example.groupel.elecoen390_watermonitor;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
+import android.support.v4.app.AlarmManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +19,7 @@ import android.widget.Toast;
 import com.github.anastr.speedviewlib.PointerSpeedometer;
 import com.github.anastr.speedviewlib.SpeedView;
 
+import java.sql.Date;
 import java.util.Random;
 
 public class Meter extends AppCompatActivity {
@@ -62,7 +68,10 @@ public class Meter extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        cancelAlarm();//avoid duplicates
+        startAlarmSystem();
     }
+
     public void ShowBadPopup(){
         waterDialog.setContentView(R.layout.popup_window_bad);
         closeBad=(ImageView)waterDialog.findViewById(R.id.closePopupBad);
@@ -107,6 +116,37 @@ public class Meter extends AppCompatActivity {
 
         waterDialog.show();
 
+    }
+    private void cancelAlarm(){
+        Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        final PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                this,
+                AlarmReceiver.REQUEST_CODE,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarm.cancel(pendingIntent);
+    }
+    private void startAlarmSystem(){
+        Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
+        final PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                this,
+                AlarmReceiver.REQUEST_CODE,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarm.setWindow(AlarmManager.RTC_WAKEUP,
+                    System.currentTimeMillis() + AlarmManager.INTERVAL_FIFTEEN_MINUTES,
+                    AlarmManager.INTERVAL_FIFTEEN_MINUTES + 5 * 60 * 1000,//5 min interval to allow for battery optimisation
+                    pendingIntent);
+        }
+        else{
+            alarm.set(AlarmManager.RTC_WAKEUP,
+                    System.currentTimeMillis() + AlarmManager.INTERVAL_FIFTEEN_MINUTES,
+                    pendingIntent);
+        }
     }
 }
 

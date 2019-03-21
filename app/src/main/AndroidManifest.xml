@@ -19,6 +19,10 @@
         <activity android:name=".TableActivity"
             android:parentActivityName=".Meter">
         </activity>
+        <receiver android:name=".AlarmReceiver"
+            android:process=":remote"></receiver>
+        <service android:name=".AlarmService"
+            android:exported="false"></service>
     </application>
 
 </manifest>
