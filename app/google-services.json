@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "project_number": "800685492726",
+    "firebase_url": "https://projectshinigamidb.firebaseio.com",
+    "project_id": "projectshinigamidb",
+    "storage_bucket": "projectshinigamidb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800685492726:android:cbfe6257211e94db",
+        "android_client_info": {
+          "package_name": "com.example.george.elecoen390_watermonitor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "800685492726-13ft3cnd9d8ksldb9i8ajoe5j13ncqgu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.george.elecoen390_watermonitor",
+            "certificate_hash": "3c6a2687f48979526487c3062625e4f5728db104"
+          }
+        },
+        {
+          "client_id": "800685492726-jlc2q39n3kjkideaifp3p8nagja4i7e1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_XancLg1Mze6loXnQzN8WF64vfvgGMUY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "800685492726-jlc2q39n3kjkideaifp3p8nagja4i7e1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:800685492726:android:ab0727564b278106",
+        "android_client_info": {
+          "package_name": "com.example.groupel.elecoen390_watermonitor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "800685492726-jlc2q39n3kjkideaifp3p8nagja4i7e1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_XancLg1Mze6loXnQzN8WF64vfvgGMUY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
