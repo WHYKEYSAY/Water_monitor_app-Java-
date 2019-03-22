@@ -1,5 +1,7 @@
 package com.example.groupel.elecoen390_watermonitor;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Dialog;
 import android.content.Intent;
@@ -43,13 +45,13 @@ public class MainMenu extends AppCompatActivity {
 
 
 
-                bgapp.animate().translationY(-1900).setDuration(800).setStartDelay(1300);
+                bgapp.animate().translationY(-1900).setDuration(800).setStartDelay(1000);
                 textsplash.animate().translationY(140).alpha(0).setDuration(800).setStartDelay(1300);
 
                 texthome.startAnimation(frombottom);
                 menus.startAnimation(frombottom);
 
-
+        
 
         meter =(ImageView)findViewById(R.id.meter_layout);
         meter.setOnClickListener(new View.OnClickListener() {
