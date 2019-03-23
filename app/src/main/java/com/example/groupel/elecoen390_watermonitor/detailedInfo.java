@@ -29,10 +29,10 @@ public class detailedInfo extends AppCompatActivity {
     String[] datas;
 
 
-    private Dialog detailInfo,detailInfo1 ;
-    private ImageView closeBad, closeGood, closeOk, start;
-    private TextView titleGeneral, general, titleHealth, Healthgeneral,titleGeneral1, general1, titleHealth1, Healthgeneral1;
-    private Button home, meter;
+    private Dialog detailInfo,detailInfo1, detailInfo2;
+    private ImageView  closeGood;
+    private TextView titleGeneral, general, titleHealth, Healthgeneral,titleGeneral1, general1, titleHealth1, Healthgeneral1,titleGeneral2, general2, titleHealth2, Healthgeneral2;
+    private Button home;
 
 
     @Override
@@ -41,6 +41,7 @@ public class detailedInfo extends AppCompatActivity {
         setContentView(R.layout.table_info);
         detailInfo = new Dialog(this);
         detailInfo1 = new Dialog(this);
+        detailInfo2 = new Dialog(this);
         final TableView<String[]> tb = (TableView<String[]>) findViewById(R.id.tableView);
         tb.setColumnCount(4);
         tb.setHeaderBackgroundColor(Color.parseColor("#233ED8"));
@@ -73,6 +74,9 @@ public class detailedInfo extends AppCompatActivity {
                 }
                 else if(rowIndex == 1){
                     ShowNitratesPopup();
+                }
+                else{
+                    ShowOrganicPopup();
                 }
             }
         });
@@ -165,6 +169,7 @@ public class detailedInfo extends AppCompatActivity {
 
 
 
+
         closeGood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,6 +178,27 @@ public class detailedInfo extends AppCompatActivity {
         });
 
         detailInfo.show();
+
+    }
+    public void ShowOrganicPopup() {
+        detailInfo2.setContentView(R.layout.organic_popup);
+        closeGood = (ImageView) detailInfo2.findViewById(R.id.closePopupGood);
+        titleGeneral2 = (TextView) detailInfo2.findViewById(R.id.titleOrganic);
+        general2 = (TextView) detailInfo2.findViewById(R.id.Organic);
+        titleHealth2 = (TextView) detailInfo2.findViewById(R.id.titleOrganicHealth);
+        Healthgeneral2 = (TextView) detailInfo2.findViewById(R.id.OrganicHealth);
+
+
+
+
+        closeGood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                detailInfo2.dismiss();
+            }
+        });
+
+        detailInfo2.show();
 
     }
     }

@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:lineSpacingExtra="8sp"
+                android:lineSpacingExtra="5sp"
                 android:text="@string/Cyanide_popup"
                 android:textAlignment="center"
                 android:textSize="18sp"
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:lineSpacingExtra="8sp"
+                android:lineSpacingExtra="5sp"
                 android:text="@string/CyanideHealth_popup"
                 android:textAlignment="center"
                 android:textSize="18sp"
@@ -97,12 +97,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:lineSpacingExtra="8sp"
+                android:lineSpacingExtra="5sp"
                 android:text="@string/CyanideSuggestion_popup"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/cyacit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="150dp"
+                android:layout_marginRight="20dp"
+                android:text="NSW Health cited"
+                android:textSize="10dp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

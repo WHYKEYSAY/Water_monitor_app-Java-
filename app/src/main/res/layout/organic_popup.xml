@@ -37,7 +37,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/titleNitrates"
+                android:id="@+id/titleOrganic"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
@@ -47,19 +47,19 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/Nitrates"
+                android:id="@+id/Organic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:lineSpacingExtra="5sp"
-                android:text="@string/Nitrates_popup"
+                android:text="@string/Organic_popup"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
 
             <TextView
-                android:id="@+id/titleNitrateHealth"
+                android:id="@+id/titleOrganicHealth"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
@@ -70,19 +70,19 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/NitrateHealth"
+                android:id="@+id/OrganicHealth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:lineSpacingExtra="5sp"
-                android:text="@string/NitratesHealth_popup"
+                android:text="@string/OrganicHealth_popup"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/titleNitrateSuggestion"
+                android:id="@+id/titleOrganicSuggestion"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="20dp"
@@ -91,24 +91,25 @@
 
                 android:textSize="25dp"
                 android:textStyle="bold" />
+
             <TextView
-                android:id="@+id/NitrateSuggestion"
+                android:id="@+id/OrganicSuggestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:lineSpacingExtra="5sp"
-                android:text="@string/NitratesSuggestion_popup"
+                android:text="@string/OrganicSuggestion_popup"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 android:textStyle="bold" />
             <TextView
-                android:id="@+id/nitcit"
+                android:id="@+id/orgcit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="150dp"
                 android:layout_marginRight="20dp"
-                android:text="PMEP cited"
+                android:text="Water Technology cited"
                 android:textSize="10dp"
                 android:textStyle="bold" />
 
