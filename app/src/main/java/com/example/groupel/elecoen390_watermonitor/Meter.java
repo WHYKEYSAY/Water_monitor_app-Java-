@@ -2,6 +2,7 @@ package com.example.groupel.elecoen390_watermonitor;
 
 import android.app.AlarmManager;
 import android.app.Dialog;
+import android.content.Intent;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
@@ -147,6 +148,25 @@ public class Meter extends AppCompatActivity {
         waterDialog.show();
 
     }
+
+    //default app methods
+    protected void onStart() {//after the OnCreate() is called, this function will be called.
+        super.onStart();
+    }
+
+    protected void onResume() {//This function will be called either when onStart() is called
+        // or the activity is resume from function onPause().
+        super.onResume();
+    }
+
+    protected void onStop() {//This function is called when the app stops running.
+        // The data-saving process is also defined inside this function
+        super.onStop();
+    }
+
+    protected void onPause() {//When another activity is taking priority,
+        // this function is called and activity is on hold.
+        super.onPause();
     private void cancelAlarm(){
         Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
         final PendingIntent pendingIntent = PendingIntent.getBroadcast(

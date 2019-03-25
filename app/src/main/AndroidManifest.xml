@@ -10,6 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".graphActivity"
+                  android:parentActivityName=".TableActivity">
+        </activity>
         <activity android:name=".Meter">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
