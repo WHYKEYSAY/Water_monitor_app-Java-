@@ -71,5 +71,4 @@ public class TableActivity extends AppCompatActivity {
         // this function is called and activity is on hold.
         super.onPause();
     }
-
 }
