@@ -41,8 +41,8 @@ public class TableActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //TODO: Make this to be able to pass table(DB) id to graph activity
-                Intent intent = new Intent(view.getContext(),graphActivity.class);
-                //Use date as key to search the measurement ID
+                Intent intent = new Intent(getApplicationContext(),graphActivity.class);
+                //Use date as key to search the measurement ID, no bad practice
                 //waterMonitorHelper helper = new waterMonitorHelper(getContext());
                 //SpectroMeasure sample = helper.getMeasure(date);
                 //id = sample.getID();

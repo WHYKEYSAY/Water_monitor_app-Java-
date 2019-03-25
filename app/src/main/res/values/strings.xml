@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ELECOEN390_WaterMonitor</string>
+    <string name="app_name">Water Monitor</string>
     <string name="bad_popup">Your water quality is bad!</string>
     <string name="good_popup">Your water quality is good!</string>
     <string name="ok_popup">Your water quality is ok!</string>

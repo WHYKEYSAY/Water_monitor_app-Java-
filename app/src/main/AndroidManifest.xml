@@ -17,17 +17,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".detailedInfo" />
+        <activity android:name=".detailedInfo"
+            android:parentActivityName=".Meter"/>
         <activity android:name=".MainMenu"/>
         <activity android:name=".TableActivity"
             android:parentActivityName=".Meter">
         </activity>
         <activity android:name=".graphActivity"
-                  android:parentActivityName=".TableActivity">
+            android:parentActivityName=".TableActivity">
         </activity>
         <receiver android:name=".AlarmReceiver"
-            android:process=":remote"></receiver>
+            android:process=":remote">
+        </receiver>
         <service android:name=".AlarmService"
-            android:exported="false"></service>
+            android:exported="false">
+        </service>
     </application>
 </manifest>

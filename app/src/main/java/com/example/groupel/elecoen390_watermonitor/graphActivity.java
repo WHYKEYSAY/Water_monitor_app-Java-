@@ -28,7 +28,6 @@ public class graphActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//display go-back arrow on top left
         Intent intent= getIntent();
         setUI();
         plot();//plotting takes info from respective item clicked at tableActivity
@@ -51,9 +50,9 @@ public class graphActivity extends AppCompatActivity {
         double x = 0;
         double y;
         for (int i = 0; i < datapointcount; i++) {
-            x += 1;
+            x += 1.0;
             y = x;
-            series.appendData(new DataPoint(x, y), true, 100);
+            series.appendData(new DataPoint(x, y), true, 50);
         }
 
         //map the datapoints
@@ -81,6 +80,7 @@ public class graphActivity extends AppCompatActivity {
         graphView.getViewport().setYAxisBoundsManual(true);
         graphView.getViewport().setMinY(0);
         graphView.getViewport().setMaxY(datapointcount);
+
 
         // custom label formatter to show units
         graphView.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {

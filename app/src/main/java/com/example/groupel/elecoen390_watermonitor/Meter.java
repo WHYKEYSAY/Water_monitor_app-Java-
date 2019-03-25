@@ -116,7 +116,6 @@ public class Meter extends AppCompatActivity {
             }
         });
 
-
         closeBad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,7 +124,6 @@ public class Meter extends AppCompatActivity {
         });
 
         waterDialog.show();
-
     }
     public void ShowOkPopup(){
         waterDialog.setContentView(R.layout.popup_window_ok);
@@ -190,6 +188,7 @@ public class Meter extends AppCompatActivity {
     protected void onPause() {//When another activity is taking priority,
         // this function is called and activity is on hold.
         super.onPause();
+    }
     private void cancelAlarm(){
         Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
         final PendingIntent pendingIntent = PendingIntent.getBroadcast(
