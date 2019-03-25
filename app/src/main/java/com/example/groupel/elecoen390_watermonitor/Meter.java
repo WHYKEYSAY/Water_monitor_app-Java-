@@ -32,7 +32,7 @@ public class Meter extends AppCompatActivity {
     private Dialog waterDialog;
     private ImageView closeBad, closeGood, closeOk, start;
     private TextView titleBad, titleGood, titleOk;
-    private Button history, alarmTest;
+    private Button history, detail, alarmTest;
     private int x=0;
 
     @Override
@@ -108,6 +108,15 @@ public class Meter extends AppCompatActivity {
         closeBad=(ImageView)waterDialog.findViewById(R.id.closePopupBad);
         titleBad =(TextView) waterDialog.findViewById(R.id.titleBad);
 
+        detail = (Button)waterDialog.findViewById(R.id.detailedBtnBad);
+        detail.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent intent = new Intent(Meter.this, detailedInfo.class);
+                startActivity(intent);
+            }
+        });
+
+
         closeBad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,9 +129,16 @@ public class Meter extends AppCompatActivity {
     }
     public void ShowOkPopup(){
         waterDialog.setContentView(R.layout.popup_window_ok);
-        closeOk=(ImageView)waterDialog.findViewById(R.id.closePopupBad);
+        closeOk=(ImageView)waterDialog.findViewById(R.id.closePopupOk);
         titleOk =(TextView) waterDialog.findViewById(R.id.titleOk);
 
+        detail = (Button)waterDialog.findViewById(R.id.detailedBtnOk);
+        detail.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent intent = new Intent(Meter.this, detailedInfo.class);
+                startActivity(intent);
+            }
+        });
         closeOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,11 +149,18 @@ public class Meter extends AppCompatActivity {
         waterDialog.show();
 
     }
-    public void ShowGoodPopup(){
+    public  void ShowGoodPopup(){
         waterDialog.setContentView(R.layout.popup_window_good);
-        closeGood=(ImageView)waterDialog.findViewById(R.id.closePopupBad);
+        closeGood=(ImageView)waterDialog.findViewById(R.id.closePopupGood);
         titleGood =(TextView) waterDialog.findViewById(R.id.titleGood);
 
+        detail = (Button)waterDialog.findViewById(R.id.detailedBtnGood);
+        detail.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent intent = new Intent(Meter.this, detailedInfo.class);
+                startActivity(intent);
+            }
+        });
         closeGood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

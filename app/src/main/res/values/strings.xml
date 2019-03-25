@@ -3,4 +3,13 @@
     <string name="bad_popup">Your water quality is bad!</string>
     <string name="good_popup">Your water quality is good!</string>
     <string name="ok_popup">Your water quality is ok!</string>
+    <string name="Nitrates_popup">Nitrate is an inorganic compound that occurs under a variety of conditions in the environment, both naturally and synthetically.</string>
+    <string name="NitratesHealth_popup">Nitrate is regulated in drinking water primarily because excess levels can cause methemoglobinemia, or "blue baby" disease. Short-term exposure to drinking water with a nitrate level at or just above the health standard of 10 mg/l nitrate-N is a potential health problem primarily for infants.</string>
+    <string name="NitratesSuggestion_popup">Nitrate does not normally cause health problems unless it is reduced to nitrite. The suggestion value is 10 mg/l nitrate as a maximum.</string>
+    <string name="Cyanide_popup">Cyanide is produced by the decomposition of some plants, can be present in some foods and water.</string>
+    <string name="CyanideHealth_popup">Cyanide is very poisonous and ingesting high levels of cyanide may cause breathing difficulties, convulsion, loss of consciousness, brain and heart damage, or even coma and death.</string>
+    <string name="CyanideSuggestion_popup">The World Health Organisation recommends that drinking water contain less than of 0.08 mg/L of cyanide and people should not consume water with a cyanide concentration above 0.5 mg/L for more than 5 days.</string>
+    <string name="Organic_popup">Bacteria are typically single-celled microorganisms that can cause health problems in humans, animals or plants, despite many form’s ability to aid in water pollution control.</string>
+    <string name="OrganicHealth_popup">Legionella,a bacteria found naturally in water, thrives in warm waters; this bacteria in water is a health risk if aerosolized (e.g., in a shower or air conditioning system) and inhaled, resulting in a type of pneumonia known as Legionnaires disease.</string>
+    <string name="OrganicSuggestion_popup">Some disinfection technologies include: UV technology, chlorine, chloramine and ozone can effectively remove bacteria.</string>
 </resources>
