@@ -66,4 +66,13 @@
         android:text="History"
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"/>
+
+    <Button
+        android:id="@+id/alarmTest_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/speedView"
+        android:layout_alignEnd="@+id/history_button"
+        android:text="Alarm"
+        android:layout_alignRight="@+id/history_button" />
 </RelativeLayout>
