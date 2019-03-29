@@ -1,6 +1,6 @@
 package com.example.groupel.elecoen390_watermonitor;
 
-import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -9,32 +9,70 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class cloudListener {
+import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
+
+public class firebaseListener {
+    private class cloudDB{
+        public Integer counter;
+        public Integer measure;
+        public ArrayList<cloudMeasurement> allMeasurements;
+    }
+    private class cloudMeasurement{
+        public int cloudID;
+        public ArrayList<Integer> Vout;
+        public ArrayList<Integer> position;//ignored
+        public Integer read;
+        public Integer timestamp;
+    }
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference();
+    DatabaseReference reference = database.getReference();
 
-    final DatabaseReference measure = myRef.child("measure");
-    final DatabaseReference position = myRef.child("position");
-    final DatabaseReference Vout = myRef.child("Vout");
+    private static int last_measurement = 0;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Vout.addValueEventListener(new ValueEventListener() {
+    //listens to count and uses count to fetch old data
+    public void initListener() {
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d("file", "Value is: " + value);
-                //Do this
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    cloudDB entireDB = new cloudDB();
+                    //wait for measurement to end
+                    entireDB.measure = dataSnapshot.child("measure").getValue(Integer.class);
+                    if (entireDB.measure == 0) {
+                        //iterate though measurements up to counter -1
+                        entireDB.counter = dataSnapshot.child("counter").getValue(Integer.class);
+                        while (last_measurement < entireDB.counter) {
+                            //create new measurement object for every measurement# where last_measurement <= # < counter
+                            DataSnapshot measurement = dataSnapshot.child("measurement" + Integer.toString(last_measurement));
+                            cloudMeasurement nextMeasure = new cloudMeasurement();
+                            nextMeasure.cloudID = last_measurement;//save current measurement, maybe useful later?
+                            nextMeasure.read = measurement.child("read").getValue(Integer.class);
+                            nextMeasure.timestamp = measurement.child("timestamp").getValue(Integer.class);
+                            for (DataSnapshot Vout : measurement.child("Vout").getChildren()) {
+                                nextMeasure.Vout.add(Vout.getValue(Integer.class));
+                            }
+                            entireDB.allMeasurements.add(nextMeasure);
+                            last_measurement++;
+                        }
+                    }
+                }
+                else
+                    Log.e(TAG, "Value from cloud is null.");
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("file", "Failed to read value.", error.toException());
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG, "Getting cloud DB failed.", databaseError.toException());
             }
         });
+    }
 
-    }}
+    //request measurement by setting measure to 1
+    public void requestMeasure(){
+        reference.child("measure").setValue(1);
+    }
+
+}
