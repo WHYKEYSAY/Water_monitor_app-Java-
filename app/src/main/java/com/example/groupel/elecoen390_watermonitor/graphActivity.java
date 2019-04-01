@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.DefaultLabelFormatter;
@@ -23,6 +25,8 @@ public class graphActivity extends AppCompatActivity {
     GraphView graphView;
     TextView y_axis_label;
     TextView x_axis_label;
+
+    Button seelocation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +108,18 @@ public class graphActivity extends AppCompatActivity {
         y_axis_label = (TextView) findViewById(R.id.axis_label_Y);
         x_axis_label = (TextView) findViewById(R.id.axis_label_X);
 
+        seelocation = (Button) findViewById(R.id.seelocation);
+        seelocation.setOnClickListener(viewLocation);
+
     }
+
+    private Button.OnClickListener viewLocation = new Button.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(getApplicationContext(),MapsActivity.class);
+            startActivity(intent);
+        }
+    };
 
 
     //default app methods

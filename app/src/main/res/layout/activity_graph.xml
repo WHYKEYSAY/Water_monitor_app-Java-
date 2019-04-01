@@ -36,4 +36,17 @@
         android:text="Wavelength"
         android:textStyle="bold" />
 
+    <Button
+        android:id="@+id/seelocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="151dp"
+        android:layout_marginLeft="151dp"
+        android:gravity="center"
+        android:text="Location"
+        android:layout_marginBottom="68dp" />
+
 </RelativeLayout>
