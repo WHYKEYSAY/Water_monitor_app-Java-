@@ -1,4 +1,4 @@
-package com.example.groupel.elecoen390_watermonitor.Helper;
+package com.example.groupel.elecoen390_watermonitor.Weather.Helper;
 
 import java.io.BufferedReader;
 import java.io.IOException;

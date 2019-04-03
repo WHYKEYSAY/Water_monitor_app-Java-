@@ -1,4 +1,4 @@
-package com.example.groupel.elecoen390_watermonitor.Common;
+package com.example.groupel.elecoen390_watermonitor.Weather.Common;
 
 import android.support.annotation.NonNull;
 

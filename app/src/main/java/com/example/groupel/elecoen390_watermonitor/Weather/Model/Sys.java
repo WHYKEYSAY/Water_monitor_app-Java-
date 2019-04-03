@@ -1,4 +1,4 @@
-package com.example.groupel.elecoen390_watermonitor.Model;
+package com.example.groupel.elecoen390_watermonitor.Weather.Model;
 
 public class Sys {
     private int type;

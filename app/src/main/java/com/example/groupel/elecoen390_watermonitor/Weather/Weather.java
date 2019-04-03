@@ -1,10 +1,9 @@
-package com.example.groupel.elecoen390_watermonitor;
+package com.example.groupel.elecoen390_watermonitor.Weather;
 
 import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.drm.ProcessedData;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -17,16 +16,15 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.groupel.elecoen390_watermonitor.Common.Common;
-import com.example.groupel.elecoen390_watermonitor.Helper.Helper;
-import com.example.groupel.elecoen390_watermonitor.Model.OpenWeatherMap;
+import com.example.groupel.elecoen390_watermonitor.Weather.Common.Common;
+import com.example.groupel.elecoen390_watermonitor.Weather.Helper.Helper;
+import com.example.groupel.elecoen390_watermonitor.Weather.Model.OpenWeatherMap;
+import com.example.groupel.elecoen390_watermonitor.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Type;
-
-import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class Weather extends AppCompatActivity implements LocationListener {
 
