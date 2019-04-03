@@ -2,10 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.groupel.elecoen390_watermonitor">
 
-    <user-permission android:name="android.permission.CAMERA"></user-permission>
+    <user-permission android:name="android.permission.CAMERA" />
 
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+
     <application
         android:name=".app"
         android:allowBackup="true"
@@ -14,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".QR_code"></activity>
+        <activity android:name=".Weather"></activity>
+        <activity android:name=".QR_code" />
         <activity android:name=".Meter">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,21 +36,22 @@
         <activity android:name=".MainMenu" />
         <activity
             android:name=".TableActivity"
-            android:parentActivityName=".Meter"></activity>
+            android:parentActivityName=".Meter" />
         <activity
             android:name=".graphActivity"
-            android:parentActivityName=".TableActivity"></activity>
+            android:parentActivityName=".TableActivity" />
 
         <receiver
             android:name=".AlarmReceiver"
-            android:process=":remote"></receiver>
+            android:process=":remote" />
 
         <service
             android:name=".AlarmService"
-            android:exported="false"></service>
+            android:exported="false" />
 
-        <meta-data android:name="com.google.android.gms.vision.DEPENDENCIES"
-            android:value="barcode"></meta-data>
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
     </application>
 
 </manifest>
