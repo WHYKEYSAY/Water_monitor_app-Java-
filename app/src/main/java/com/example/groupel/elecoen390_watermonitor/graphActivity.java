@@ -3,6 +3,10 @@ package com.example.groupel.elecoen390_watermonitor;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.widget.TextView;
 
 import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
@@ -17,18 +21,24 @@ public class graphActivity extends AppCompatActivity {
     //TODO: add method to get data point from local database or firebase
     private LineGraphSeries<DataPoint> series;
     GraphView graphView;
+    TextView y_axis_label;
+    TextView x_axis_label;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);//display go-back arrow on top left
         Intent intent= getIntent();
         setUI();
-        //TODO: add labels
-        //TODO: add buttons that navigates to the detailed info
         plot();//plotting takes info from respective item clicked at tableActivity
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.more_options,menu);
+        return true;
     }
 
     private void plot() {
@@ -40,9 +50,9 @@ public class graphActivity extends AppCompatActivity {
         double x = 0;
         double y;
         for (int i = 0; i < datapointcount; i++) {
-            x += 1;
+            x += 1.0;
             y = x;
-            series.appendData(new DataPoint(x, y), true, 100);
+            series.appendData(new DataPoint(x, y), true, 50);
         }
 
         //map the datapoints
@@ -71,16 +81,17 @@ public class graphActivity extends AppCompatActivity {
         graphView.getViewport().setMinY(0);
         graphView.getViewport().setMaxY(datapointcount);
 
+
         // custom label formatter to show units
         graphView.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter() {
             @Override
             public String formatLabel(double value, boolean isValueX) {
                 if (isValueX) {
-                    // show um for x values
+                    // show units for x values
                     return super.formatLabel(value, isValueX) + " um";
                 } else {
-                    // show um for y values
-                    return super.formatLabel(value, isValueX) + " um";
+                    // add units for y values, html source for displaying exponential in textview mode
+                    return super.formatLabel(value, isValueX) + " W/" + Html.fromHtml("m<sup>2</sup>");
                 }
             }
         });
@@ -90,6 +101,8 @@ public class graphActivity extends AppCompatActivity {
     private void setUI() {
         graphView = (GraphView) findViewById(R.id.graph_IntensityVSwavelength);
         series = new LineGraphSeries<>();
+        y_axis_label = (TextView) findViewById(R.id.axis_label_Y);
+        x_axis_label = (TextView) findViewById(R.id.axis_label_X);
 
     }
 

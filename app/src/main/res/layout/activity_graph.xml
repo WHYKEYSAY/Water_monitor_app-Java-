@@ -11,6 +11,29 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/graph_IntensityVSwavelength"/>
+        android:layout_marginBottom="200dp"
+        android:layout_marginTop="30dp"
+        android:id="@+id/graph_IntensityVSwavelength"
+        />
+
+    <TextView
+        android:id="@+id/axis_label_Y"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Intensity"
+        android:layout_marginLeft="20dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/axis_label_X"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/graph_IntensityVSwavelength"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="-200dp"
+        android:gravity="center"
+        android:text="Wavelength"
+        android:textStyle="bold" />
 
 </RelativeLayout>
