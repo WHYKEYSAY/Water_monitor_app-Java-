@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-
 import de.codecrafters.tableview.TableView;
 import de.codecrafters.tableview.toolkit.SimpleTableDataAdapter;
 import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
@@ -25,6 +24,7 @@ import de.codecrafters.tableview.listeners.TableDataClickListener;
 public class detailedInfo extends AppCompatActivity {
 
     String[] infoHeader = {"ID", "Name", "Concentration", "Others"};
+
     String[][] infos;
     String[] datas;
 
@@ -47,7 +47,6 @@ public class detailedInfo extends AppCompatActivity {
         tb.setHeaderBackgroundColor(Color.parseColor("#233ED8"));
 
         populateData();
-
 
         filter = findViewById(R.id.filter_btn);
         filter.setOnClickListener(new View.OnClickListener(){
@@ -82,11 +81,6 @@ public class detailedInfo extends AppCompatActivity {
         });
 
     }
-
-
-
-
-
 
     private void populateData() {
 
@@ -165,10 +159,6 @@ public class detailedInfo extends AppCompatActivity {
         general1 = (TextView) detailInfo.findViewById(R.id.Cyanide);
         titleHealth1 = (TextView) detailInfo.findViewById(R.id.titleCyanideHealth);
         Healthgeneral1 = (TextView) detailInfo.findViewById(R.id.CyanideHealth);
-
-
-
-
 
         closeGood.setOnClickListener(new View.OnClickListener() {
             @Override

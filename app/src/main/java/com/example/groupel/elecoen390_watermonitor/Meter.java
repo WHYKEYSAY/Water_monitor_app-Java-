@@ -110,7 +110,6 @@ public class Meter extends AppCompatActivity {
             }
         });
 
-
         closeBad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,7 +118,6 @@ public class Meter extends AppCompatActivity {
         });
 
         waterDialog.show();
-
     }
     public void ShowOkPopup(){
         waterDialog.setContentView(R.layout.popup_window_ok);

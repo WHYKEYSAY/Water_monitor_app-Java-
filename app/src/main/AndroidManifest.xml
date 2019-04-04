@@ -42,8 +42,7 @@
             android:parentActivityName=".detailedInfo"
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
         <activity android:name=".detailedInfo" />
-        <activity android:name=".Meter"/>
-        <activity android:name=".MainActivity">
+        <activity android:name=".Meter">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,6 +53,17 @@
             android:name=".TableActivity"
             android:parentActivityName=".Meter"
             android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
+        <activity android:name=".detailedInfo"
+            android:parentActivityName=".Meter"/>
+        <activity android:name=".MainMenu"/>
+        <activity android:name=".graphActivity"
+            android:parentActivityName=".TableActivity">
+        </activity>
+        <receiver android:name=".AlarmReceiver"
+            android:process=":remote">
+        </receiver>
+        <service android:name=".AlarmService"
+            android:exported="false">
+        </service>
     </application>
-
 </manifest>

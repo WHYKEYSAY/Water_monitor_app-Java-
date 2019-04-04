@@ -1,6 +1,7 @@
 package com.example.groupel.elecoen390_watermonitor;
 
 public class InfoTable {
+  
     String id,name,concentration,others;
 
     public String getId(){
