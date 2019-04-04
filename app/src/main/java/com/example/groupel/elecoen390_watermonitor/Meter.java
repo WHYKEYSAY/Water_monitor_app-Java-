@@ -70,7 +70,7 @@ public class Meter extends AppCompatActivity {
         history = findViewById(R.id.history_button);
         history.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent intent = new Intent(Meter.this, TableActivity.class);
+                Intent intent = new Intent(Meter.this, History.class);
                 startActivity(intent);
             }
         });

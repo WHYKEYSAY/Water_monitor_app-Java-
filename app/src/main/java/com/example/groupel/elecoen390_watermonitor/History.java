@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class TableActivity extends AppCompatActivity {
+public class History extends AppCompatActivity {
 
     TextView text_title_line;
     ListView listView;

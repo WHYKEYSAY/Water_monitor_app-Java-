@@ -8,6 +8,10 @@
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
 
     <application
         android:name=".app"
@@ -45,11 +49,11 @@
             android:parentActivityName=".Meter" />
         <activity android:name=".MainMenu" />
         <activity
-            android:name=".TableActivity"
+            android:name=".History"
             android:parentActivityName=".Meter"></activity>
         <activity
             android:name=".graphActivity"
-            android:parentActivityName=".TableActivity"></activity>
+            android:parentActivityName=".History"></activity>
 
         <receiver
             android:name=".AlarmReceiver"
