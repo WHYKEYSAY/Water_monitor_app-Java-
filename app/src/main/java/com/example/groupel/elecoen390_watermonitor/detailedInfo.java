@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import com.example.groupel.elecoen390_watermonitor.waterMonitordbHelper;
 
 import de.codecrafters.tableview.TableView;
 import de.codecrafters.tableview.toolkit.SimpleTableDataAdapter;
@@ -24,7 +23,8 @@ import de.codecrafters.tableview.listeners.TableDataClickListener;
 
 public class detailedInfo extends AppCompatActivity {
 
-    String[] infoHeader = {"ID", "Name", "Percent", "Others"};
+    String[] infoHeader = {"ID", "Name", "Concentration", "Others"};
+
     String[][] infos;
     String[] datas;
 
@@ -32,7 +32,7 @@ public class detailedInfo extends AppCompatActivity {
     private Dialog detailInfo,detailInfo1, detailInfo2;
     private ImageView  closeGood;
     private TextView titleGeneral, general, titleHealth, Healthgeneral,titleGeneral1, general1, titleHealth1, Healthgeneral1,titleGeneral2, general2, titleHealth2, Healthgeneral2;
-    private Button home;
+    private Button filter;
 
 
     @Override
@@ -48,11 +48,10 @@ public class detailedInfo extends AppCompatActivity {
 
         populateData();
 
-
-        home = findViewById(R.id.home_btn);
-        home.setOnClickListener(new View.OnClickListener(){
+        filter = findViewById(R.id.filter_btn);
+        filter.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
-                Intent intent = new Intent(detailedInfo.this, MainMenu.class);
+                Intent intent = new Intent(detailedInfo.this, FilterListView.class);
                 startActivity(intent);
 
             }
@@ -82,11 +81,6 @@ public class detailedInfo extends AppCompatActivity {
         });
 
     }
-
-
-
-
-
 
     private void populateData() {
 
@@ -165,10 +159,6 @@ public class detailedInfo extends AppCompatActivity {
         general1 = (TextView) detailInfo.findViewById(R.id.Cyanide);
         titleHealth1 = (TextView) detailInfo.findViewById(R.id.titleCyanideHealth);
         Healthgeneral1 = (TextView) detailInfo.findViewById(R.id.CyanideHealth);
-
-
-
-
 
         closeGood.setOnClickListener(new View.OnClickListener() {
             @Override

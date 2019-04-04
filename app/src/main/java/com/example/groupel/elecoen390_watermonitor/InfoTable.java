@@ -1,7 +1,8 @@
 package com.example.groupel.elecoen390_watermonitor;
 
 public class InfoTable {
-    String id,name,percent,others;
+  
+    String id,name,concentration,others;
 
     public String getId(){
         return id;
@@ -20,11 +21,11 @@ public class InfoTable {
     }
 
     public String getPercent(){
-        return percent;
+        return concentration;
     }
 
     public void setPercent(String percent){
-        this.percent = percent;
+        this.concentration = percent;
     }
 
     public String getOthers(){
