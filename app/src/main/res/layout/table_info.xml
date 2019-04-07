@@ -28,35 +28,7 @@
         android:layout_marginBottom="358dp"
         app:tableView_headerColor="@color/colorAccent" />
 
-    <Button
-        android:id="@+id/filter_btn"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:textSize="20dp"
-        android:layout_width="107dp"
-        android:layout_height="75dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="57dp"
-        android:layout_marginLeft="57dp"
-        android:layout_marginBottom="165dp"
-        android:text="Filter"
-        android:textColor="@color/colorPrimary"/>
 
-    <Button
-        android:id="@+id/graph_btn"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:textSize="20dp"
-        android:layout_width="107dp"
-        android:layout_height="75dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="165dp"
-        android:text="Graph"
-        android:textColor="@color/colorPrimary"/>
 
 
 </RelativeLayout>

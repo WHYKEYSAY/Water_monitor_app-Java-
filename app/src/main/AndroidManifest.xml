@@ -10,39 +10,44 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:supportsRtl="true">
 
         <activity
             android:name=".Filter6"
             android:parentActivityName=".FilterListView"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Filter5"
             android:parentActivityName=".FilterListView"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Filter4"
             android:parentActivityName=".FilterListView"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Filter3"
             android:parentActivityName=".FilterListView"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".Filter2"
             android:parentActivityName=".FilterListView"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Filter1"
             android:parentActivityName=".FilterListView"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".FilterListView"
             android:parentActivityName=".detailedInfo"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
-        <activity android:name=".detailedInfo" />
-        <activity android:name=".Meter">
+            android:theme="@style/AppTheme"/>
+        />
+        <activity android:name=".detailedInfo"
+            android:parentActivityName=".Meter"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".Meter"
+            android:theme="@style/AppTheme"/>
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,11 +57,12 @@
         <activity
             android:name=".TableActivity"
             android:parentActivityName=".Meter"
-            android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar" />
-        <activity android:name=".detailedInfo"
-            android:parentActivityName=".Meter"/>
-        <activity android:name=".MainMenu"/>
+            android:theme="@style/AppTheme" />
+
+
+
         <activity android:name=".graphActivity"
+            android:theme="@style/AppTheme"
             android:parentActivityName=".TableActivity">
         </activity>
         <receiver android:name=".AlarmReceiver"

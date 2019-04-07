@@ -6,37 +6,82 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.anastr.speedviewlib.SpeedView;
 
 import java.util.Random;
 
-public class Meter extends AppCompatActivity {
+public class Meter extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private NotificationManagerCompat notificationManagerCompat;
     private Dialog waterDialog;
-    private ImageView closeBad, closeGood, closeOk, start;
+    private ImageView closeBad, closeGood, closeOk;
     private TextView titleBad, titleGood, titleOk;
-    private Button history, detail, alarmTest;
+    private Button history, detail, alarmTest,test;
     private int x=0;
+    private DrawerLayout drawer;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meter);
-        waterDialog = new Dialog(this);
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch(menuItem.getItemId()){
+            case R.id.nav_filter:
+                Intent intent = new Intent(Meter.this, FilterListView.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_alarm:
+                notificationManagerCompat = NotificationManagerCompat.from(this);
+                pushAlarmNotification();
+                cancelAlarm();//avoid duplicates
+                startAlarmSystem();
+                break;
+            case R.id.nav_history:
+                Intent intent1 = new Intent(Meter.this, TableActivity.class);
+                startActivity(intent1);
+        }
+        return true;
+    }
 
-        start = (ImageView)findViewById(R.id.btn_start);
-        start.setOnClickListener(new View.OnClickListener() {
+    @Override
+    protected void onCreate(Bundle savedInstanceState){
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_meter_main);
+        waterDialog = new Dialog(this);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView =findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
+
+
+
+
+
+        test = findViewById(R.id.test_btn);
+        test.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 SpeedView speedometer = findViewById(R.id.speedView);
 
@@ -61,6 +106,7 @@ public class Meter extends AppCompatActivity {
                 },2500);
             }
         });
+        /*
         history = findViewById(R.id.history_button);
         history.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
@@ -68,18 +114,25 @@ public class Meter extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+*/
+       // notificationManagerCompat = NotificationManagerCompat.from(this);
+        //alarmTest = findViewById(R.id.alarmTest_button);
+        //alarmTest.setOnClickListener(new View.OnClickListener(){
+           // public void onClick(View v) {
+             //   pushAlarmNotification();
+          //  }
+      //  });
 
-        notificationManagerCompat = NotificationManagerCompat.from(this);
-        alarmTest = findViewById(R.id.alarmTest_button);
-        alarmTest.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                pushAlarmNotification();
-            }
-        });
+       // cancelAlarm();//avoid duplicates
+      //  startAlarmSystem();
+   }
 
-        cancelAlarm();//avoid duplicates
-        startAlarmSystem();
-    }
+
+
+
+
+
+
 
     public void pushAlarmNotification(){
         Intent notifIntent = new Intent(this, Meter.class);
