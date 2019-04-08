@@ -131,7 +131,7 @@ public class detailedInfo extends AppCompatActivity implements NavigationView.On
         infotableList.add(infotable);
 
         infotable = new InfoTable();
-        infotable.setName("Organic");
+        infotable.setName("Bacteria");
         infotableList.add(infotable);
 
 
