@@ -6,29 +6,22 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.github.anastr.speedviewlib.SpeedView;
 
 import java.util.Random;
 
@@ -74,36 +67,38 @@ public class Meter extends AppCompatActivity implements NavigationView.OnNavigat
         NavigationView navigationView =findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
-
-
-
-
+        detail = (Button)findViewById(R.id.detailedBtn);
+        detail.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+                Intent intent = new Intent(Meter.this, detailedInfo.class);
+                startActivity(intent);
+            }
+        });
         test = findViewById(R.id.test_btn);
         test.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                SpeedView speedometer = findViewById(R.id.speedView);
+                CardView message = findViewById(R.id.current_status);
+                TextView warning = findViewById(R.id.titleBad);
+                ImageView icon = findViewById(R.id.quality_icon);
 
-                speedometer.setWithTremble(false);
                 Random rand = new Random();
                 x = rand.nextInt(101);
-                speedometer.speedTo(x);
 
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(x<30) {
-                            ShowBadPopup();
-                        }
-                        else if(x>=30 && x<80) {
-                            ShowOkPopup();
-                        }
-                        else {
-                            ShowGoodPopup();
-                        }
-                    }
-                },2500);
+                if(x<30) {
+                    message.setCardBackgroundColor(Color.RED);
+                    warning.setText("Your Water is Bad! \nAdvise: Avoid drinking");
+                    icon.setImageResource(R.drawable.ic_bad_black_24dp);
+                }
+                else if(x>=30 && x<80) {
+                    message.setCardBackgroundColor(Color.YELLOW);
+                    warning.setText("Your Water is OK! \nAdvise: Boil before drinking");
+                    icon.setImageResource(R.drawable.ic_ok_black_24dp);
+                }
+                else {
+                    message.setCardBackgroundColor(Color.GREEN);
+                    warning.setText("Your Water is Good!");
+                    icon.setImageResource(R.drawable.ic_good_black_24dp);
+                }
             }
         });
         /*
@@ -122,17 +117,9 @@ public class Meter extends AppCompatActivity implements NavigationView.OnNavigat
              //   pushAlarmNotification();
           //  }
       //  });
-
-       // cancelAlarm();//avoid duplicates
-      //  startAlarmSystem();
+      cancelAlarm();//avoid duplicates
+      startAlarmSystem();
    }
-
-
-
-
-
-
-
 
     public void pushAlarmNotification(){
         Intent notifIntent = new Intent(this, Meter.class);
@@ -150,72 +137,6 @@ public class Meter extends AppCompatActivity implements NavigationView.OnNavigat
         notificationManagerCompat.notify(1, notification);
     }
 
-    public void ShowBadPopup(){
-        waterDialog.setContentView(R.layout.popup_window_bad);
-        closeBad=(ImageView)waterDialog.findViewById(R.id.closePopupBad);
-        titleBad =(TextView) waterDialog.findViewById(R.id.titleBad);
-
-        detail = (Button)waterDialog.findViewById(R.id.detailedBtnBad);
-        detail.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent intent = new Intent(Meter.this, detailedInfo.class);
-                startActivity(intent);
-            }
-        });
-
-        closeBad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                waterDialog.dismiss();
-            }
-        });
-
-        waterDialog.show();
-    }
-    public void ShowOkPopup(){
-        waterDialog.setContentView(R.layout.popup_window_ok);
-        closeOk=(ImageView)waterDialog.findViewById(R.id.closePopupOk);
-        titleOk =(TextView) waterDialog.findViewById(R.id.titleOk);
-
-        detail = (Button)waterDialog.findViewById(R.id.detailedBtnOk);
-        detail.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent intent = new Intent(Meter.this, detailedInfo.class);
-                startActivity(intent);
-            }
-        });
-        closeOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                waterDialog.dismiss();
-            }
-        });
-
-        waterDialog.show();
-
-    }
-    public  void ShowGoodPopup(){
-        waterDialog.setContentView(R.layout.popup_window_good);
-        closeGood=(ImageView)waterDialog.findViewById(R.id.closePopupGood);
-        titleGood =(TextView) waterDialog.findViewById(R.id.titleGood);
-
-        detail = (Button)waterDialog.findViewById(R.id.detailedBtnGood);
-        detail.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent intent = new Intent(Meter.this, detailedInfo.class);
-                startActivity(intent);
-            }
-        });
-        closeGood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                waterDialog.dismiss();
-            }
-        });
-
-        waterDialog.show();
-
-    }
 
     //default app methods
     protected void onStart() {//after the OnCreate() is called, this function will be called.
