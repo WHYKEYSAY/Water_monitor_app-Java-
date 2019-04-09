@@ -10,10 +10,8 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.util.Log;
-import android.widget.Toast;
 
-import static android.content.ContentValues.TAG;
+import java.util.ArrayList;
 
 public class AlarmService extends IntentService {
     private NotificationManagerCompat notificationManagerCompat;
@@ -26,7 +24,15 @@ public class AlarmService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         //setup test and notification here
-        pushAlarmNotification();
+        waterMonitordbHelper dbhelper = new waterMonitordbHelper(getApplicationContext());
+        ArrayList<turbidity> allTurb = dbhelper.getAllTurbidity();
+        if (!allTurb.isEmpty()){
+            turbidity turb = allTurb.get(allTurb.size() - 1);
+            if (turb.getTurb() >= 20 && alarmID != turb.getID()){
+                pushAlarmNotification();
+                alarmID = turb.getID();
+            }
+        }
         //reset alarm
         cancelAlarm();//avoid duplicates
         startAlarmSystem();

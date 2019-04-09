@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "26083060045",
+    "firebase_url": "https://backupplan390.firebaseio.com",
+    "project_id": "backupplan390",
+    "storage_bucket": "backupplan390.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26083060045:android:cbfe6257211e94db",
+        "android_client_info": {
+          "package_name": "com.example.george.elecoen390_watermonitor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26083060045-n6um01qojjr9v10jojbhkgbim64rp5qt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.george.elecoen390_watermonitor",
+            "certificate_hash": "6b5efcf7378e585eac9a33454c60b7607e2d7e96"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDB-CrOyonXSok1PbjfCagB-pmxPZ5GdRg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26083060045-e57ktv85uunvlb39svtso5a69s1fm5an.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
