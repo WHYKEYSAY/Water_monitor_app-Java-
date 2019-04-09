@@ -122,11 +122,11 @@ public class Meter extends AppCompatActivity implements NavigationView.OnNavigat
 
        if (!allTurb.isEmpty()) {
            Integer last_turb = allTurb.get(allTurb.size() - 1).getTurb();
-           if (last_turb >= 20) {//value is in NTU
+           if (last_turb >= 100) {
                message.setCardBackgroundColor(Color.RED);
                warning.setText("Your Water is Bad! \nAdvise: Avoid drinking");
                icon.setImageResource(R.drawable.ic_bad_black_24dp);
-           } else if (last_turb >= 5 && x < 20) {
+           } else if (last_turb >= 50 && x < 100) {
                message.setCardBackgroundColor(Color.YELLOW);
                warning.setText("Your Water is OK! \nAdvise: Boil before drinking");
                icon.setImageResource(R.drawable.ic_ok_black_24dp);
@@ -237,7 +237,7 @@ public class Meter extends AppCompatActivity implements NavigationView.OnNavigat
                         turb.setDate(new java.sql.Date(new java.util.Date().getTime()));
                         Integer sensor_out = t_list.getValue(Integer.class);
                         Log.d(TAG, "Saved some data to local DB: " + sensor_out);
-                        //based on empirical characterisation: y = 0.0028x^2 - 6.8856x + 4068.6
+                        //based on empirical characterisation: y = 0.0028x^2 - 6.8856x + 4068.6 (sadly inacurrate)
                         turb.setTurb((int) (0.0028 * sensor_out.floatValue() * sensor_out.floatValue()
                                 - 6.8856 * sensor_out.floatValue()
                                 + 4068.6));

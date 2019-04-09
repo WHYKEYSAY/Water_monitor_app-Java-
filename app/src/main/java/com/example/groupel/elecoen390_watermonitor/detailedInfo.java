@@ -6,31 +6,28 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import de.codecrafters.tableview.TableView;
+import de.codecrafters.tableview.listeners.TableDataClickListener;
 import de.codecrafters.tableview.toolkit.SimpleTableDataAdapter;
 import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
-import de.codecrafters.tableview.listeners.TableDataClickListener;
 
 public class detailedInfo extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -43,6 +40,7 @@ public class detailedInfo extends AppCompatActivity implements NavigationView.On
     private Dialog detailInfo,detailInfo1, detailInfo2;
     private ImageView  closeGood;
     private TextView titleGeneral, general, titleHealth, Healthgeneral,titleGeneral1, general1, titleHealth1, Healthgeneral1,titleGeneral2, general2, titleHealth2, Healthgeneral2;
+    private TextView turbView, dateView;
     private Button filter;
     private NotificationManagerCompat notificationManagerCompat;
     private DrawerLayout drawer;
@@ -84,16 +82,19 @@ public class detailedInfo extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView =findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-
+        waterMonitordbHelper dbhelper = new waterMonitordbHelper(getApplicationContext());
+        turbView = findViewById(R.id.Turb_onInfo);
+        dateView = findViewById(R.id.date_onInfo);
+        ArrayList<turbidity> allTrub = dbhelper.getAllTurbidity();
+        turbidity turb = allTrub.get(allTrub.size() - 1);
+        turbView.setText("Trubidity: \n" + turb.getTurb());
+        dateView.setText("Date: \n" + waterMonitordbHelper.dateFormat.format(turb.getDate()));
 
         tb.setHeaderAdapter(new SimpleTableHeaderAdapter(this, infoHeader));
         tb.setDataAdapter(new SimpleTableDataAdapter(this, infos));
 
-
         tb.addDataClickListener(new TableDataClickListener<String[]>() {
             @Override
-
             public void onDataClicked(int rowIndex, String[] clickedData) {
                 if (rowIndex == 0) {
 

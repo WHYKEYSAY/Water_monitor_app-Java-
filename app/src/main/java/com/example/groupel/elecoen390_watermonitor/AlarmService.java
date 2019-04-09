@@ -28,7 +28,7 @@ public class AlarmService extends IntentService {
         ArrayList<turbidity> allTurb = dbhelper.getAllTurbidity();
         if (!allTurb.isEmpty()){
             turbidity turb = allTurb.get(allTurb.size() - 1);
-            if (turb.getTurb() >= 20 && alarmID != turb.getID()){
+            if (turb.getTurb() >= 100 && alarmID != turb.getID()){
                 pushAlarmNotification();
                 alarmID = turb.getID();
             }
