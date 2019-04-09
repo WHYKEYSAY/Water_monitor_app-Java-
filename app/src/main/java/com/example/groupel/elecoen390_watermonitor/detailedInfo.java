@@ -34,7 +34,7 @@ import de.codecrafters.tableview.listeners.TableDataClickListener;
 
 public class detailedInfo extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
-    String[] infoHeader = {"ID", "Name", "Conc.", "Others"};
+    String[] infoHeader = { "Names"};
 
     String[][] infos;
 
@@ -122,24 +122,16 @@ public class detailedInfo extends AppCompatActivity implements NavigationView.On
         ArrayList<InfoTable> infotableList = new ArrayList<>();
 
 
-        infotable.setId("1");
+
         infotable.setName("Cyanide");
-        infotable.setPercent("80%");
-        infotable.setOthers("xxxx");
         infotableList.add(infotable);
 
         infotable = new InfoTable();
-        infotable.setId("2");
         infotable.setName("Nitrates");
-        infotable.setPercent("15%");
-        infotable.setOthers("xxxx");
         infotableList.add(infotable);
 
         infotable = new InfoTable();
-        infotable.setId("3");
-        infotable.setName("Organic");
-        infotable.setPercent("20%");
-        infotable.setOthers("xxx");
+        infotable.setName("Bacteria");
         infotableList.add(infotable);
 
 
@@ -149,10 +141,9 @@ public class detailedInfo extends AppCompatActivity implements NavigationView.On
 
             InfoTable s = infotableList.get(i);
 
-            infos[i][0] = s.getId();
-            infos[i][1] = s.getName();
-            infos[i][2] = s.getPercent();
-            infos[i][3] = s.getOthers();
+
+            infos[i][0] = s.getName();
+
 
 
         }
