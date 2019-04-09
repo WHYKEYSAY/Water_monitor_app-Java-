@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:text="@string/bad_popup"
+                android:text="Your Water Quality is unknown.\n Take a measurement and restart app."
                 android:textAlignment="center"
                 android:textSize="25dp"
                 android:textStyle="bold" />
@@ -44,7 +44,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="10dp"
-                android:src="@drawable/ic_bad_black_24dp" />
+                android:src="@drawable/ic_ok_black_24dp" />
 
             <Button
                 android:id="@+id/detailedBtn"

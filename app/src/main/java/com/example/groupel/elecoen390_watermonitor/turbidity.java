@@ -1,6 +1,6 @@
 package com.example.groupel.elecoen390_watermonitor;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class turbidity {
     private long ID;

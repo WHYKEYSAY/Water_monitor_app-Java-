@@ -161,7 +161,7 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
                 if (c.moveToFirst()) {
                     sample.setID(c.getLong(c.getColumnIndex(KEY_ID)));
                     try {
-                        sample.setDate(new java.sql.Date( dateFormat.parse(c.getString(c.getColumnIndex(KEY_DATE))).getDate() ));
+                        sample.setDate(dateFormat.parse(c.getString(c.getColumnIndex(KEY_DATE))));
                     }
                     catch(ParseException e){
                         Log.d(TAG, "Date Exception " + e);
@@ -198,7 +198,7 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
                         spectroMeasure sample = new spectroMeasure();
                         sample.setID(c.getLong(c.getColumnIndex(KEY_ID)));
                         try {
-                            sample.setDate(new java.sql.Date( dateFormat.parse(c.getString(c.getColumnIndex(KEY_DATE))).getDate() ));
+                            sample.setDate(dateFormat.parse(c.getString(c.getColumnIndex(KEY_DATE))));
                         }
                         catch(ParseException e){
                             Log.d(TAG, "Date Exception " + e);
@@ -497,7 +497,7 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_TUR, new_tur.getTurb());
         values.put(KEY_MEASURE_ID, new_tur.getMeasurementID());
-        values.put(KEY_DATE, dateFormat.format(new_tur.getDate()));
+        values.put(KEY_TUR_DATE, dateFormat.format(new_tur.getDate()));
 
         try {
             //return id
@@ -528,7 +528,7 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
                     turbidity.setMeasurementID(c.getLong(c.getColumnIndex(KEY_MEASURE_ID)));
                     turbidity.setTurb(c.getInt(c.getColumnIndex(KEY_TUR)));
                     try {
-                        turbidity.setDate(new java.sql.Date( dateFormat.parse(c.getString(c.getColumnIndex(KEY_DATE))).getDate() ));
+                        turbidity.setDate(dateFormat.parse(c.getString(c.getColumnIndex(KEY_TUR_DATE))));
                     }
                     catch(ParseException e){
                         Log.d(TAG, "Date Exception " + e);
@@ -570,7 +570,7 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
                         turbidity.setID(c.getLong(c.getColumnIndex(KEY_ID)));
                         turbidity.setMeasurementID(c.getLong(c.getColumnIndex(KEY_MEASURE_ID)));
                         try {
-                            turbidity.setDate(new java.sql.Date( dateFormat.parse(c.getString(c.getColumnIndex(KEY_DATE))).getDate() ));
+                            turbidity.setDate(dateFormat.parse(c.getString(c.getColumnIndex(KEY_TUR_DATE))));
                         }
                         catch(ParseException e){
                             Log.d(TAG, "Date Exception " + e);
@@ -611,7 +611,7 @@ public class waterMonitordbHelper extends SQLiteOpenHelper {
                         turbidity.setMeasurementID(c.getLong(c.getColumnIndex(KEY_MEASURE_ID)));
                         turbidity.setTurb(c.getInt(c.getColumnIndex(KEY_TUR)));
                         try {
-                            turbidity.setDate(new java.sql.Date( dateFormat.parse(c.getString(c.getColumnIndex(KEY_DATE))).getDate() ));
+                            turbidity.setDate(dateFormat.parse(c.getString(c.getColumnIndex(KEY_TUR_DATE))));
                         }
                         catch(ParseException e){
                             Log.d(TAG, "Date Exception " + e);

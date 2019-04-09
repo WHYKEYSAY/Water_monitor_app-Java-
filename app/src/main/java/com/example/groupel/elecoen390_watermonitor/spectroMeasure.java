@@ -1,6 +1,6 @@
 package com.example.groupel.elecoen390_watermonitor;
 
-import java.sql.Date;
+import java.util.Date;
 
 /*
 * Describes any one water sample and provides ID to get all points(wavelength,absorbtion), turbidity

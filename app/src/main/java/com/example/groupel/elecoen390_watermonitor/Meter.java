@@ -6,6 +6,7 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,13 +18,22 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Random;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class Meter extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private NotificationManagerCompat notificationManagerCompat;
@@ -33,6 +43,7 @@ public class Meter extends AppCompatActivity implements NavigationView.OnNavigat
     private Button history, detail, alarmTest,test;
     private int x=0;
     private DrawerLayout drawer;
+    private static int read_count;//keep track of entry on cloud
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -56,9 +67,14 @@ public class Meter extends AppCompatActivity implements NavigationView.OnNavigat
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meter_main);
+
+        SharedPreferences sharedPref = getApplicationContext()
+                .getSharedPreferences(getString(R.string.saved_count), Context.MODE_PRIVATE);
+        read_count = sharedPref.getInt("key_count", 0);//if never saved (new install), it's 0
+        startCloudListener();
+
         waterDialog = new Dialog(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -67,38 +83,13 @@ public class Meter extends AppCompatActivity implements NavigationView.OnNavigat
         NavigationView navigationView =findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        detail = (Button)findViewById(R.id.detailedBtn);
-        detail.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v) {
-                Intent intent = new Intent(Meter.this, detailedInfo.class);
-                startActivity(intent);
-            }
-        });
+        setupWaterInfoCard();
+
         test = findViewById(R.id.test_btn);
         test.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                CardView message = findViewById(R.id.current_status);
-                TextView warning = findViewById(R.id.titleBad);
-                ImageView icon = findViewById(R.id.quality_icon);
-
-                Random rand = new Random();
-                x = rand.nextInt(101);
-
-                if(x<30) {
-                    message.setCardBackgroundColor(Color.RED);
-                    warning.setText("Your Water is Bad! \nAdvise: Avoid drinking");
-                    icon.setImageResource(R.drawable.ic_bad_black_24dp);
-                }
-                else if(x>=30 && x<80) {
-                    message.setCardBackgroundColor(Color.YELLOW);
-                    warning.setText("Your Water is OK! \nAdvise: Boil before drinking");
-                    icon.setImageResource(R.drawable.ic_ok_black_24dp);
-                }
-                else {
-                    message.setCardBackgroundColor(Color.GREEN);
-                    warning.setText("Your Water is Good!");
-                    icon.setImageResource(R.drawable.ic_good_black_24dp);
-                }
+                //request measurement
+                FirebaseDatabase.getInstance().getReference("measure").setValue(1);//set 'measure' on cloud
             }
         });
         /*
@@ -119,6 +110,39 @@ public class Meter extends AppCompatActivity implements NavigationView.OnNavigat
       //  });
       cancelAlarm();//avoid duplicates
       startAlarmSystem();
+   }
+
+   private void setupWaterInfoCard(){
+       CardView message = findViewById(R.id.current_status);
+       TextView warning = findViewById(R.id.titleBad);
+       ImageView icon = findViewById(R.id.quality_icon);
+
+       waterMonitordbHelper dbhelper = new waterMonitordbHelper(getApplicationContext());
+       ArrayList<turbidity> allTurb = dbhelper.getAllTurbidity();
+
+       if (!allTurb.isEmpty()) {
+           Integer last_turb = allTurb.get(allTurb.size() - 1).getTurb();
+           if (last_turb >= 20) {//value is in NTU
+               message.setCardBackgroundColor(Color.RED);
+               warning.setText("Your Water is Bad! \nAdvise: Avoid drinking");
+               icon.setImageResource(R.drawable.ic_bad_black_24dp);
+           } else if (last_turb >= 5 && x < 20) {
+               message.setCardBackgroundColor(Color.YELLOW);
+               warning.setText("Your Water is OK! \nAdvise: Boil before drinking");
+               icon.setImageResource(R.drawable.ic_ok_black_24dp);
+           } else {
+               message.setCardBackgroundColor(Color.GREEN);
+               warning.setText("Your Water is Good!");
+               icon.setImageResource(R.drawable.ic_good_black_24dp);
+           }
+       }
+       detail = (Button)findViewById(R.id.detailedBtn);
+       detail.setOnClickListener(new View.OnClickListener(){
+           public void onClick(View v) {
+               Intent intent = new Intent(Meter.this, detailedInfo.class);
+               startActivity(intent);
+           }
+       });
    }
 
     public void pushAlarmNotification(){
@@ -187,6 +211,51 @@ public class Meter extends AppCompatActivity implements NavigationView.OnNavigat
                     System.currentTimeMillis() + AlarmManager.INTERVAL_FIFTEEN_MINUTES,
                     pendingIntent);
         }
+    }
+
+    public void startCloudListener(){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference allref = database.getReference();
+
+        ValueEventListener listener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Integer measure_flag;
+                measure_flag = dataSnapshot.child("measure").getValue(Integer.class);
+                if (measure_flag == 0){//wait for measurement to end
+                    int i = 1;//online count starts at 1 if this runs
+                    for (DataSnapshot t_list : dataSnapshot.child("turbs").getChildren()) { //go through all measurements
+                        if(i <= read_count){//skip old values
+                            i++;
+                            continue;
+                        }
+                        waterMonitordbHelper localDB = new waterMonitordbHelper(getApplicationContext());
+                        turbidity turb = new turbidity();
+                        spectroMeasure new_meas = new spectroMeasure();
+                        new_meas.setDate(new java.sql.Date(new java.util.Date().getTime()));
+                        turb.setMeasurementID(localDB.createSpectroMeasure(new_meas));
+                        turb.setDate(new java.sql.Date(new java.util.Date().getTime()));
+                        Integer sensor_out = t_list.getValue(Integer.class);
+                        Log.d(TAG, "Saved some data to local DB: " + sensor_out);
+                        //based on empirical characterisation: y = 0.0028x^2 - 6.8856x + 4068.6
+                        turb.setTurb((int) (0.0028 * sensor_out.floatValue() * sensor_out.floatValue()
+                                - 6.8856 * sensor_out.floatValue()
+                                + 4068.6));
+                        localDB.createTur(turb);
+                    }
+                    Integer online_count = dataSnapshot.child("counter").getValue(Integer.class);
+                    read_count = online_count;
+                    getApplicationContext().getSharedPreferences(getString(R.string.saved_count), Context.MODE_PRIVATE)
+                            .edit().putInt("key_count", read_count).commit();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG, "Error: Firebase listener failed", databaseError.toException());
+            }
+        };
+        allref.addValueEventListener(listener);
     }
 }
 

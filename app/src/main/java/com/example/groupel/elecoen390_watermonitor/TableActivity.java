@@ -1,10 +1,7 @@
 package com.example.groupel.elecoen390_watermonitor;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,11 +17,15 @@ public class TableActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table);
-        setUI();
         //Demo listview item
         //TODO: Display an arrow on the rightmost of a line
-        String item = String.format("%-20s %15s","4","2019-03-15");
-        arrayList.add(item);
+        waterMonitordbHelper dbHelper = new waterMonitordbHelper(getApplicationContext());
+        ArrayList<turbidity> allTurb = dbHelper.getAllTurbidity();
+        for (turbidity turb : allTurb){
+            String item = String.format("%-20s %15s",turb.getTurb(),waterMonitordbHelper.dateFormat.format(turb.getDate()));
+            arrayList.add(item);
+        }
+        setUI();
     }
 
     private void setUI() {
@@ -37,19 +38,6 @@ public class TableActivity extends AppCompatActivity {
         //TODO:  Display text "No History" if nothing is retrieved from the database/firebase
         //TODO: Store last 20 test history locally
         //This list should acquire all the history from the firebase/local database
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //TODO: Make this to be able to pass table(DB) id to graph activity
-                Intent intent = new Intent(getApplicationContext(),graphActivity.class);
-                //Use date as key to search the measurement ID, no bad practice
-                //waterMonitorHelper helper = new waterMonitorHelper(getContext());
-                //SpectroMeasure sample = helper.getMeasure(date);
-                //id = sample.getID();
-                //intent.putExtra("measureID",id);
-                startActivity(intent);
-            }
-        });
     }
 
     //default app methods
